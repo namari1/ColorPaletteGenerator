@@ -1,0 +1,37 @@
+{% extends 'bootstrap/base.html' %}
+{% import "bootstrap/wtf.html" as wtf %}
+
+{% block title %} Color Palette Generator {% endblock %}
+{% block styles %}
+<style>
+h1{text-align: center;}
+img {
+  width: 600px;
+  height: auto;
+}
+td {text-align: center;}
+
+</style>
+<link rel="stylesheet" href="{{ url_for('static', filename='css/bootstrap.css')}}">
+{% endblock %}
+{% block content %}
+<h1> Color Palette Generator </h1>
+{{ wtf.quick_form(form, novalidate=True) }}
+{% if image %}
+<img src="{{url_for('static', filename='uploads/' + image) }}" alt="Uploaded Image">
+<table class="table">
+    <tr>
+        <td> Color</td>
+        <td> Hex Code</td>
+    </tr>
+    {% for i in range(hex_codes|length) %}
+    <tr>
+        <td style="background-color: {{hex_codes[i]}}"></td>
+        <td> {{hex_codes[i]}}</td>
+    </tr>
+    {% endfor %}
+</table>
+
+{% endif %}
+
+{% endblock %}
